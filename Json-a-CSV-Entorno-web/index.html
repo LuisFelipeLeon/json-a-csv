@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON a CSV</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Convertidor de JSON a CSV</h1>
+    <input type="file" id="fileInput" accept=".json" />
+    <label for="sortKey">Ordenar por:</label>
+    <select id="sortKey" disabled>
+       <option value="">(elige una clave)</option>
+    </select>
+    <button id="downloadBtn" disabled>Descargar CSV</button>
+    <pre id="jsonPreview"></pre>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
