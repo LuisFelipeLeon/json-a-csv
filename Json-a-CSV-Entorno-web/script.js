@@ -3,9 +3,31 @@ const sortKeySelect = document.getElementById("sortKey");
 const downloadBtn = document.getElementById("downloadBtn");
 const jsonPreview = document.getElementById("jsonPreview");
 
-let jsonDataOriginal = []; // copia original sin ordenar
+let jsonDataOriginal = [];
 let jsonData = [];
 
+// 🌙 Tema con toggle + ícono
+const themeToggle = document.getElementById("themeToggle");
+const themeIcon = document.getElementById("themeIcon");
+
+// Aplicar tema guardado al cargar
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark-mode");
+  themeIcon.textContent = "☀️";
+} else {
+  themeIcon.textContent = "🌙";
+}
+
+// Toggle del tema
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+
+  const isDark = document.body.classList.contains("dark-mode");
+  themeIcon.textContent = isDark ? "☀️" : "🌙";
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+});
+
+// 🚀 Carga de archivo
 fileInput.addEventListener("change", (event) => {
   const file = event.target.files[0];
   if (!file) return;
@@ -21,10 +43,9 @@ fileInput.addEventListener("change", (event) => {
         return;
       }
 
-      jsonDataOriginal = [...content]; // Guardamos una copia original
+      jsonDataOriginal = [...content];
       jsonData = [...content];
 
-      // Poblar el selector con claves
       const keys = Object.keys(jsonData[0] || {});
       sortKeySelect.innerHTML = `
         <option value="">(sin ordenar)</option>
@@ -43,11 +64,12 @@ fileInput.addEventListener("change", (event) => {
   reader.readAsText(file);
 });
 
+// Ordenar al seleccionar clave
 sortKeySelect.addEventListener("change", () => {
   const key = sortKeySelect.value;
 
   if (!key) {
-    jsonData = [...jsonDataOriginal]; // Restaurar original
+    jsonData = [...jsonDataOriginal];
   } else {
     jsonData.sort((a, b) => {
       if (a[key] < b[key]) return -1;
@@ -59,6 +81,7 @@ sortKeySelect.addEventListener("change", () => {
   jsonPreview.textContent = JSON.stringify(jsonData, null, 2);
 });
 
+// Descargar CSV
 downloadBtn.addEventListener("click", () => {
   if (!jsonData.length) return;
 
