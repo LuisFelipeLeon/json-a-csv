@@ -100,7 +100,7 @@ downloadBtn.addEventListener("click", () => {
 
   const a = document.createElement("a");
   a.href = url;
-  a.download = "json_ordenado_full.csv";
+  a.download = "csv_jsonrealizado.csv";
   a.click();
   URL.revokeObjectURL(url);
 });
@@ -112,7 +112,7 @@ excelBtn.addEventListener("click", () => {
   const worksheet = XLSX.utils.json_to_sheet(jsonData);
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "Datos");
-  XLSX.writeFile(workbook, "output.xlsx");
+  XLSX.writeFile(workbook, "jsonCsv_ordenado_full.xlsx");
 });
 
 // 🖼️ Renderizar tabla visual
