@@ -1,26 +1,44 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JSON a CSV</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Convertidor de JSON a CSV SEK</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <h1>Convertidor de JSON a CSV SEK</h1>
+
+    <!-- Toggle modo oscuro -->
     <div class="theme-toggle" id="themeToggle" title="Cambiar tema">
       <span id="themeIcon">🌙</span>
-    </div>    
+    </div>
+
+    <!-- Subir JSON -->
     <input type="file" id="fileInput" accept=".json" />
+
+    <!-- Selección de ordenamiento -->
     <label for="sortKey">Ordenar por:</label>
     <select id="sortKey" disabled>
-       <option value="">(elige una clave)</option>
+      <option value="">(sin ordenar)</option>
     </select>
+
+    <!-- Botones de descarga -->
     <button id="downloadBtn" disabled>Descargar CSV</button>
+    <button id="excelBtn" disabled>Descargar Excel (.xlsx)</button>
+
+    <!-- Vista previa JSON -->
+    <h2 style="margin-top: 20px;">Vista previa JSON</h2>
     <pre id="jsonPreview"></pre>
+
+    <!-- Vista previa en tabla -->
+    <h2 style="margin-top: 20px;">Vista previa en tabla</h2>
+    <div id="tableContainer"></div>
   </div>
+
+  <!-- Librerías -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

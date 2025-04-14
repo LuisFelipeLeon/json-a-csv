@@ -5,7 +5,6 @@
   padding: 0;
 }
 
-/* Fondo y fuente */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(120deg, #e0f7fa, #ffffff);
@@ -17,7 +16,6 @@ body {
   align-items: flex-start;
 }
 
-/* Contenedor principal */
 .container {
   background-color: #fff;
   width: 100%;
@@ -27,7 +25,6 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Título */
 .container h1 {
   font-size: 24px;
   margin-bottom: 20px;
@@ -35,7 +32,6 @@ body {
   text-align: center;
 }
 
-/* Toggle de tema */
 .theme-toggle {
   width: 42px;
   height: 42px;
@@ -60,7 +56,6 @@ body.dark-mode .theme-toggle {
   background-color: #26a69a;
 }
 
-/* Inputs, botones y dropdown */
 input[type="file"],
 button,
 select {
@@ -73,13 +68,11 @@ select {
   border-radius: 8px;
 }
 
-/* Archivo */
 input[type="file"] {
   background-color: #e0f2f1;
   cursor: pointer;
 }
 
-/* Botón */
 button {
   background-color: #00796b;
   color: white;
@@ -97,7 +90,6 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Dropdown */
 select {
   background-color: #e0f2f1;
   color: #333;
@@ -117,7 +109,6 @@ select:disabled {
   cursor: not-allowed;
 }
 
-/* Previsualización del JSON */
 pre {
   margin-top: 20px;
   padding: 15px;
@@ -131,7 +122,25 @@ pre {
   border: 1px solid #ddd;
 }
 
-/* 📱 Estilos responsivos para móviles */
+/* Tabla previa */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 10px;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #e0f2f1;
+  font-weight: bold;
+}
+
+/* Responsive */
 @media (max-width: 480px) {
   body {
     padding: 15px;
@@ -160,7 +169,7 @@ pre {
   }
 }
 
-/* 🌙 Modo oscuro manual */
+/* Modo oscuro manual */
 body.dark-mode {
   background: #121212;
   color: #eee;
@@ -199,9 +208,56 @@ body.dark-mode button:disabled {
   color: #999;
 }
 
-body.dark-mode pre {
+body.dark-mode pre,
+body.dark-mode table {
   background-color: #2a2a2a;
-  border-color: #444;
   color: #eee;
 }
 
+body.dark-mode th {
+  background-color: #004d40;
+}
+
+/* Contenedor de la tabla con scroll horizontal */
+#tableContainer {
+  overflow-x: auto;
+  max-width: 100%;
+  margin-top: 10px;
+}
+
+/* Estilo de la tabla */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 600px; /* Evitar que la tabla se colapse demasiado */
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  word-wrap: break-word;
+  white-space: nowrap; /* Evitar que las celdas se desborden */
+}
+
+th {
+  background-color: #e0f2f1;
+  font-weight: bold;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 600px) {
+  table {
+    min-width: auto; /* Quitar el ancho mínimo */
+  }
+
+  th, td {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  /* Agregar scroll horizontal si la tabla es más ancha que la pantalla */
+  #tableContainer {
+    overflow-x: scroll;
+  }
+}

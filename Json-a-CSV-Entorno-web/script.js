@@ -1,16 +1,16 @@
 const fileInput = document.getElementById("fileInput");
 const sortKeySelect = document.getElementById("sortKey");
 const downloadBtn = document.getElementById("downloadBtn");
+const excelBtn = document.getElementById("excelBtn");
 const jsonPreview = document.getElementById("jsonPreview");
 
 let jsonDataOriginal = [];
 let jsonData = [];
 
-// 🌙 Tema con toggle + ícono
+// 🌙 Modo oscuro con toggle e ícono
 const themeToggle = document.getElementById("themeToggle");
 const themeIcon = document.getElementById("themeIcon");
 
-// Aplicar tema guardado al cargar
 if (localStorage.getItem("theme") === "dark") {
   document.body.classList.add("dark-mode");
   themeIcon.textContent = "☀️";
@@ -18,16 +18,14 @@ if (localStorage.getItem("theme") === "dark") {
   themeIcon.textContent = "🌙";
 }
 
-// Toggle del tema
 themeToggle.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");
-
   const isDark = document.body.classList.contains("dark-mode");
   themeIcon.textContent = isDark ? "☀️" : "🌙";
   localStorage.setItem("theme", isDark ? "dark" : "light");
 });
 
-// 🚀 Carga de archivo
+// 📂 Cargar archivo JSON
 fileInput.addEventListener("change", (event) => {
   const file = event.target.files[0];
   if (!file) return;
@@ -54,8 +52,10 @@ fileInput.addEventListener("change", (event) => {
 
       sortKeySelect.disabled = false;
       downloadBtn.disabled = false;
+      excelBtn.disabled = false;
 
       jsonPreview.textContent = JSON.stringify(jsonData, null, 2);
+      renderTable(jsonData);
     } catch (err) {
       alert("Error al leer el archivo JSON");
       console.error(err);
@@ -64,7 +64,7 @@ fileInput.addEventListener("change", (event) => {
   reader.readAsText(file);
 });
 
-// Ordenar al seleccionar clave
+// 🔀 Ordenar por clave
 sortKeySelect.addEventListener("change", () => {
   const key = sortKeySelect.value;
 
@@ -79,9 +79,10 @@ sortKeySelect.addEventListener("change", () => {
   }
 
   jsonPreview.textContent = JSON.stringify(jsonData, null, 2);
+  renderTable(jsonData);
 });
 
-// Descargar CSV
+// 📤 Descargar CSV
 downloadBtn.addEventListener("click", () => {
   if (!jsonData.length) return;
 
@@ -103,3 +104,45 @@ downloadBtn.addEventListener("click", () => {
   a.click();
   URL.revokeObjectURL(url);
 });
+
+// 📤 Descargar Excel
+excelBtn.addEventListener("click", () => {
+  if (!jsonData.length) return;
+
+  const worksheet = XLSX.utils.json_to_sheet(jsonData);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Datos");
+  XLSX.writeFile(workbook, "output.xlsx");
+});
+
+// 🖼️ Renderizar tabla visual
+function renderTable(data) {
+  const container = document.getElementById("tableContainer");
+  container.innerHTML = "";
+
+  if (!data.length) {
+    container.textContent = "No hay datos para mostrar.";
+    return;
+  }
+
+  const table = document.createElement("table");
+  const thead = table.createTHead();
+  const headerRow = thead.insertRow();
+
+  Object.keys(data[0]).forEach(key => {
+    const th = document.createElement("th");
+    th.textContent = key;
+    headerRow.appendChild(th);
+  });
+
+  const tbody = table.createTBody();
+  data.forEach(row => {
+    const tr = tbody.insertRow();
+    Object.values(row).forEach(value => {
+      const td = tr.insertCell();
+      td.textContent = value ?? "";
+    });
+  });
+
+  container.appendChild(table);
+}
