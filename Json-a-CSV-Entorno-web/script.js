@@ -34,9 +34,32 @@ fileInput.addEventListener("change", (event) => {
   reader.onload = function (e) {
     try {
       const raw = JSON.parse(e.target.result);
-      const content = Array.isArray(raw) ? raw : raw.result;
+      let content;
 
-      if (!Array.isArray(content)) {
+      // 1. Caso arreglo directamente
+      if (Array.isArray(raw)) {
+        content = raw;
+
+      // 2. Caso objeto con propiedad `result` que es arreglo
+      } else if (Array.isArray(raw.result)) {
+        content = raw.result;
+
+      // 3. Caso OpenAPI o Swagger con propiedad paths
+      } else if (raw.paths && typeof raw.paths === "object") {
+        content = [];
+
+        for (const [path, methods] of Object.entries(raw.paths)) {
+          for (const [method, details] of Object.entries(methods)) {
+            content.push({
+              path,
+              method,
+              operationId: details.operationId || "",
+              description: details?.responses?.default?.description || "",
+            });
+          }
+        }
+
+      } else {
         alert("El archivo JSON no contiene un array válido.");
         return;
       }
@@ -72,9 +95,9 @@ sortKeySelect.addEventListener("change", () => {
     jsonData = [...jsonDataOriginal];
   } else {
     jsonData.sort((a, b) => {
-      if (a[key] < b[key]) return -1;
-      if (a[key] > b[key]) return 1;
-      return 0;
+      const valA = a[key] ?? "";
+      const valB = b[key] ?? "";
+      return valA < valB ? -1 : valA > valB ? 1 : 0;
     });
   }
 
@@ -146,3 +169,4 @@ function renderTable(data) {
 
   container.appendChild(table);
 }
+
