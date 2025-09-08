@@ -56,6 +56,7 @@ body.dark-mode .theme-toggle {
   background-color: #26a69a;
 }
 
+/* Inputs y botones */
 input[type="file"],
 button,
 select {
@@ -68,9 +69,31 @@ select {
   border-radius: 8px;
 }
 
+.file-label {
+  display: block;
+}
+
+.file-label > span {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #00796b;
+}
+
+.file-multi > span {
+  color: #ff8f00;
+}
+
 input[type="file"] {
   background-color: #e0f2f1;
   cursor: pointer;
+}
+
+.sort-label {
+  margin-top: 12px;
+  display: block;
+  font-weight: 600;
+  color: #00796b;
 }
 
 button {
@@ -88,6 +111,14 @@ button:hover {
 button:disabled {
   background-color: #b2dfdb;
   cursor: not-allowed;
+}
+
+#mergeBtn, #mergeExcelBtn {
+  background-color: #ff9800;
+}
+
+#mergeBtn:hover, #mergeExcelBtn:hover {
+  background-color: #e65100;
 }
 
 select {
@@ -109,6 +140,13 @@ select:disabled {
   cursor: not-allowed;
 }
 
+.btn-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
 pre {
   margin-top: 20px;
   padding: 15px;
@@ -123,9 +161,16 @@ pre {
 }
 
 /* Tabla previa */
+#tableContainer {
+  overflow-x: auto;
+  max-width: 100%;
+  margin-top: 10px;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
+  min-width: 600px; /* Evitar que la tabla se colapse demasiado */
   margin-top: 10px;
 }
 
@@ -133,6 +178,8 @@ th, td {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  word-wrap: break-word;
+  white-space: nowrap; /* Evitar que las celdas se desborden */
 }
 
 th {
@@ -141,32 +188,10 @@ th {
 }
 
 /* Responsive */
-@media (max-width: 480px) {
-  body {
-    padding: 15px;
-  }
-
-  .container {
-    padding: 20px;
-    box-shadow: none;
-    border-radius: 0;
-  }
-
-  .container h1 {
-    font-size: 20px;
-  }
-
-  input[type="file"],
-  button,
-  select {
-    font-size: 15px;
-    padding: 10px;
-  }
-
-  pre {
-    font-size: 13px;
-    max-height: 200px;
-  }
+@media (max-width: 600px) {
+  table { min-width: auto; }
+  th, td { font-size: 12px; padding: 6px; }
+  #tableContainer { overflow-x: scroll; }
 }
 
 /* Modo oscuro manual */
@@ -218,46 +243,3 @@ body.dark-mode th {
   background-color: #004d40;
 }
 
-/* Contenedor de la tabla con scroll horizontal */
-#tableContainer {
-  overflow-x: auto;
-  max-width: 100%;
-  margin-top: 10px;
-}
-
-/* Estilo de la tabla */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  min-width: 600px; /* Evitar que la tabla se colapse demasiado */
-}
-
-th, td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  word-wrap: break-word;
-  white-space: nowrap; /* Evitar que las celdas se desborden */
-}
-
-th {
-  background-color: #e0f2f1;
-  font-weight: bold;
-}
-
-/* Responsividad para pantallas pequeñas */
-@media (max-width: 600px) {
-  table {
-    min-width: auto; /* Quitar el ancho mínimo */
-  }
-
-  th, td {
-    font-size: 12px;
-    padding: 6px;
-  }
-
-  /* Agregar scroll horizontal si la tabla es más ancha que la pantalla */
-  #tableContainer {
-    overflow-x: scroll;
-  }
-}
