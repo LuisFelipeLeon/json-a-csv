@@ -15,18 +15,35 @@
       <span id="themeIcon">🌙</span>
     </div>
 
-    <!-- Subir JSON -->
-    <input type="file" id="fileInput" accept=".json" />
+    <!-- Subir JSON único -->
+    <label class="file-label">
+      <span>Elegir archivo JSON</span>
+      <input type="file" id="fileInput" accept=".json" />
+    </label>
 
-    <!-- Selección de ordenamiento -->
-    <label for="sortKey">Ordenar por:</label>
+    <!-- NUEVO: Subir múltiples JSON -->
+    <label class="file-label file-multi">
+      <span>Elegir múltiples archivos JSON</span>
+      <input type="file" id="fileMultiInput" accept=".json" multiple />
+    </label>
+
+    <!-- Selección de ordenamiento (aplica al dataset cargado/mergado) -->
+    <label for="sortKey" class="sort-label">Ordenar por:</label>
     <select id="sortKey" disabled>
       <option value="">(sin ordenar)</option>
     </select>
 
-    <!-- Botones de descarga -->
-    <button id="downloadBtn" disabled>Descargar CSV</button>
-    <button id="excelBtn" disabled>Descargar Excel (.xlsx)</button>
+    <!-- Botones de descarga (single) -->
+    <div class="btn-row">
+      <button id="downloadBtn" disabled>Descargar CSV</button>
+      <button id="excelBtn" disabled>Descargar Excel (.xlsx)</button>
+    </div>
+
+    <!-- NUEVOS: Botones de descarga para múltiples -->
+    <div class="btn-row">
+      <button id="mergeBtn" disabled>Unir y Descargar CSV (múltiples)</button>
+      <button id="mergeExcelBtn" disabled>Unir y Descargar Excel (múltiples)</button>
+    </div>
 
     <!-- Vista previa JSON -->
     <h2 style="margin-top: 20px;">Vista previa JSON</h2>
