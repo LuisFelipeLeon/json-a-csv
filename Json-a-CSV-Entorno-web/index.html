@@ -21,13 +21,13 @@
       <input type="file" id="fileInput" accept=".json" />
     </label>
 
-    <!-- NUEVO: Subir múltiples JSON -->
+    <!-- Subir múltiples JSON -->
     <label class="file-label file-multi">
       <span>Elegir múltiples archivos JSON</span>
       <input type="file" id="fileMultiInput" accept=".json" multiple />
     </label>
 
-    <!-- Selección de ordenamiento (aplica al dataset cargado/mergado) -->
+    <!-- Selección de ordenamiento -->
     <label for="sortKey" class="sort-label">Ordenar por:</label>
     <select id="sortKey" disabled>
       <option value="">(sin ordenar)</option>
@@ -39,10 +39,15 @@
       <button id="excelBtn" disabled>Descargar Excel (.xlsx)</button>
     </div>
 
-    <!-- NUEVOS: Botones de descarga para múltiples -->
+    <!-- Botones de descarga (múltiples) -->
     <div class="btn-row">
       <button id="mergeBtn" disabled>Unir y Descargar CSV (múltiples)</button>
       <button id="mergeExcelBtn" disabled>Unir y Descargar Excel (múltiples)</button>
+    </div>
+
+    <!-- Botón Reset -->
+    <div class="btn-row">
+      <button id="resetBtn" disabled>Reiniciar / Limpiar</button>
     </div>
 
     <!-- Vista previa JSON -->
